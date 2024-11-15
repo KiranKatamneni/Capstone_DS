@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_input.css') }}">
+</head>
+<body>
+
+    <!-- Header (Navigation Bar) -->
+    <header>
+        <div class="nav-bar">
+            <div class="nav-logo">
+                <img src="{{ url_for('static', filename='AiSG.png') }}" alt="GenAI Logo" class="logo-image">
+                GenAI Story Teller
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('main_page') }}">Home</a></li>
+                <li><a href="{{ url_for('main_page') }}#project">Project</a></li>
+                <li><a href="{{ url_for('main_page') }}#team-section">Team</a></li>
+                <li><a href="#contact-us">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="input-container">
+        <h1>Story Generator</h1>
+
+        <!-- Custom Story and Surprise Me buttons -->
+        <div class="button-container">
+            <button type="button" class="story-button" onclick="showCustomStoryForm()">Custom Story</button>
+            <button type="button" class="story-button" onclick="generateRandomStory()">Surprise Me</button>
+        </div>
+
+        <!-- Custom Story Form -->
+        <div id="custom-story-form" style="display: none;">
+            <label for="character_name">Main Character's Name *</label>
+            <input id="character_name" class="input-field" type="text" placeholder="Enter character name" required>
+
+            <label for="setting">Setting *</label>
+            <input id="setting" class="input-field" type="text" placeholder="Enter the setting (e.g., Paris, a distant planet)" required>
+
+            <label for="traits">Character Traits *</label>
+            <input id="traits" class="input-field" type="text" placeholder="e.g., brave, kind, curious" required>
+
+            <label for="goal">Character’s Goal or Mission *</label>
+            <input id="goal" class="input-field" type="text" placeholder="e.g., find a lost treasure, rescue a friend" required>
+
+            <label for="obstacle">Main Challenge or Obstacle *</label>
+            <input id="obstacle" class="input-field" type="text" placeholder="Enter the biggest challenge" required>
+
+            <label for="genre">Select Genre *</label>
+            <select id="genre" class="dropdown" required>
+                <option value="" disabled selected>Choose a genre</option>
+                <option value="scary">Scary</option>
+                <option value="funny & silly">Funny & Silly</option>
+                <option value="fantasy & alternate universe">Fantasy & Alternate Universe</option>
+                <option value="sci-fi">Sci-Fi</option>
+                <option value="adventure & travel">Adventure & Travel</option>
+                <option value="classic & traditional">Classic & Traditional</option>
+            </select>
+
+            <label for="twist">Surprise Twist (Optional)</label>
+            <input id="twist" class="input-field" type="text" placeholder="Describe any surprise twist">
+
+            <button type="button" class="generate-button" onclick="generateStory()">Generate</button>
+        </div>
+
+        <!-- Results Container -->
+        <div id="results" class="results-container" style="display: none;">
+            <button id="copy-button" class="copy-button" onclick="copyToClipboard()">
+                <span class="copy-icon">📋</span> Copy
+            </button>
+            <h2>Results</h2>
+            <p id="generated-story"></p>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer id="contact-us" style="width: 100vw; background-color: #120643; padding: 50px 20px; color: #ded9d9; text-align: center;">
+        <h2 style="color: #fff; margin-bottom: 15px;">Stay Connected with Us</h2>
+        <p style="color: #ded9d9; font-size: 1.1em; margin-bottom: 10px;">Enter Your Email *</p>
+        <form action="#" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 20px;">
+            <input type="email" placeholder="Enter Your Email" required style="padding: 10px; width: 60%; max-width: 400px; border: 1px solid #f4a261; border-radius: 5px;">
+            <button type="submit" style="padding: 10px 20px; background-color: #f4a261; color: white; border: none; border-radius: 5px; cursor: pointer;">Subscribe</button>
+        </form>
+        <div style="color: #ded9d9; font-size: 1em; margin-top: 20px;">
+            <p>Contact Us:</p>
+            <p>123-456-7890 | info@aisg.com</p>
+            <p>701 S. Nedderman Drive, Arlington, TX 76019</p>
+        </div>
+        <p>&copy; 2024 Ai Story Generator</p>
+        <div class="social-icons">
+            <a href="#"><img src="{{ url_for('static', filename='facebook.png') }}" alt="Facebook"></a>
+            <a href="#"><img src="{{ url_for('static', filename='linkedin.png') }}" alt="LinkedIn"></a>
+            <a href="#"><img src="{{ url_for('static', filename='instagram.png') }}" alt="Instagram"></a>
+            <a href="#"><img src="{{ url_for('static', filename='x.png') }}" alt="X"></a>
+            <a href="#"><img src="{{ url_for('static', filename='youtube.png') }}" alt="YouTube"></a>
+        </div>
+    </footer>
+
+    <script>
+        function showCustomStoryForm() {
+            document.getElementById("custom-story-form").style.display = "block";
+            document.getElementById("results").style.display = "none";
+        }
+
+        function generateStory() {
+            const character_name = document.getElementById("character_name").value;
+            const setting = document.getElementById("setting").value;
+            const traits = document.getElementById("traits").value;
+            const goal = document.getElementById("goal").value;
+            const obstacle = document.getElementById("obstacle").value;
+            const genre = document.getElementById("genre").value;
+            const twist = document.getElementById("twist").value;
+
+            fetch("/generate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ character_name, setting, traits, goal, obstacle, genre, twist })
+            })
+            .then(response => response.json())
+            .then(data => displayStory(data.story));
+        }
+
+        function generateRandomStory() {
+            const randomData = {
+                character_name: "Alex",
+                setting: "a hidden forest",
+                traits: "brave and curious",
+                goal: "discover a lost treasure",
+                obstacle: "a mysterious guardian",
+                genre: "adventure & travel",
+                twist: "finds a map with clues"
+            };
+            
+            fetch("/generate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(randomData)
+            })
+            .then(response => response.json())
+            .then(data => displayStory(data.story));
+        }
+
+        function displayStory(story) {
+            const resultsContainer = document.getElementById("results");
+            const generatedStory = document.getElementById("generated-story");
+            generatedStory.innerHTML = story;
+            resultsContainer.style.display = "block";
+        }
+
+        function copyToClipboard() {
+            const storyText = document.getElementById("generated-story").innerText;
+            navigator.clipboard.writeText(storyText)
+                .then(() => alert("Text copied to clipboard"))
+                .catch(err => console.error("Error copying text: ", err));
+        }
+    </script>
+
+</body>
+</html>

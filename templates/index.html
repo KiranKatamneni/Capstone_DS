@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenAI Story Teller | Interactive</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <nav class="nav-bar">
+            <div class="nav-logo">
+                <img src="{{ url_for('static', filename='AiSG.png') }}" alt="GenAI Logo" class="logo-image">
+                GenAI Story Teller
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#project">Project</a></li>
+                <li><a href="#team-section">Team</a></li>
+                <li><a href="#contact-us">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section" id="hero">
+        <div class="hero-content">
+            <h1 class="animated-text">We Create Stories</h1>
+            <p class="hero-subtext">Unleash your imagination with StoryTeller AI.</p>
+        </div>
+    </section>
+
+        <!-- Hero Section -->
+    <section class="hero">
+        <div class="video-background">
+            <video autoplay muted loop id="bg-video" loading="lazy">
+                <source src="{{ url_for('static', filename='videos/video_music.mp4') }}" type="video/mp4"> <!-- Replace with your video path -->
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <div class="hero-content">
+            <h1>AI-Powered Story Generation</h1>
+            <p>Transforming your imagination into incredible stories with just a few clicks.</p>
+            <button class="button" id="readMoreBtn">Read More</button>
+
+            <!-- Modal for More Info -->
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <h2>More About Us</h2>
+                    <p>We leverage AI to generate stories based on your prompts, providing you with a fun and creative way to engage with AI technology.</p>
+                    <button class="modal-close">Close</button>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <!-- Link the button to the new input page (input.html) -->
+                <a href="{{ url_for('input_page') }}" class="generate-story-button">
+                    <div class="button-content">
+                        <span class="button-icon">+</span>
+                        <div class="button-text">
+                            <span class="main-text">Generate your AI story</span>
+                            <span class="sub-text">Input your ideas to generate any story</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-hero" id="project">
+        <h1>About StoryTeller AI</h1>
+        <p>StoryTeller AI combines technology and imagination, letting you explore the stories that live within you. Dive in, create, and let your next adventure begin!</p>
+
+        <div class="content-grid">
+            <div class="content-block">
+                <h2>Inspiration</h2>
+                <p>StoryTeller AI was born from a vision to use generative AI to provide a personalized storytelling experience that sparks creativity. With StoryTeller AI, users can become protagonists in their own unique adventures—whether it's a thrilling sci-fi quest, a medieval fantasy, or a nostalgic slice-of-life story capturing everyday moments. Our goal is to empower users to create and experience stories that reflect their imagination and curiosity.</p>
+            </div>
+            
+            <div class="content-block">
+                <h2>How We Built It</h2>
+                <p>To bring StoryTeller AI to life, we trained OpenAI’s GPT-2 Medium model on a dataset of over 31,000 short stories for children aged 4-16. Using Python for core functionality, HTML/CSS for the front-end, and Flask for backend routing, we created a seamless, interactive platform that makes storytelling accessible and enjoyable.</p>
+            </div>
+        
+            <div class="content-block">
+                <h2>Key Features</h2>
+                <ul>
+                    <li><strong>Intuitive Prompting:</strong> Users can create custom stories by answering a few questions to shape their prompt, with StoryTeller AI crafting an engaging narrative.</li>
+                    <li><strong>‘Surprise Me’ Option:</strong> Generates a story without user input, allowing for a fun, random storytelling experience.</li>
+                    <li><strong>Story Metrics:</strong> Users can view readability and coherence metrics like perplexity and the Flesch-Kincaid index after generating a story.</li>
+                    <li><strong>Easy Copying:</strong> Save your generated story with a single click, making it easy to revisit or share.</li>
+                </ul>
+            </div>
+        
+            <div class="content-block">
+                <h2>Challenges</h2>
+                <p><strong>Resource Constraints:</strong> Limited computational resources restricted us from using larger language models like LLAMA, so we optimized with GPT-2 Medium.</p>
+                <p><strong>Deployment Strategy:</strong> Balancing scalability, accessibility, and cost-efficiency was crucial to find the optimal deployment environment.</p>
+            </div>
+        
+            <div class="content-block">
+                <h2>Accomplishments</h2>
+                <ul>
+                    <li><strong>Seamless Integration:</strong> Achieved robust connectivity across all tech stack components for a well-integrated platform.</li>
+                    <li><strong>User-Friendly Design:</strong> Our intuitive front-end prioritizes ease of use and visual appeal, allowing users to navigate effortlessly.</li>
+                    <li><strong>Hands-On Learning:</strong> Gained invaluable experience in software development and tackled real-world challenges with multiple tools and technologies.</li>
+                </ul>
+            </div>
+        </div>
+    </section>    
+
+    <section id="team-section">
+        <div class="team-section">
+            <h2 class="team-heading">Meet the Team</h2>
+            <div class="team-members">
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='kiran.jpeg') }}" alt="Kiran Kumar" class="team-photo">
+                    <h3 class="team-name">Kiran Kumar Katamneni</h3>
+                    <p class="team-role">Data Analyst & Full-Stack Developer</p>
+                    <p class="team-bio">
+                        Bringing together the front and back end, Kiran bridged the technical elements to ensure a robust and cohesive platform. 
+                        He worked across Flask, HTML, and CSS to manage API integrations and ensure smooth communication between all components.
+                    </p>
+                </div>
+    
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='sameer.jpeg') }}" alt="Sameer Tele" class="team-photo">
+                    <h3 class="team-name">Sameer Tele</h3>
+                    <p class="team-role">NLP & Data Scientist</p>
+                    <p class="team-bio">
+                        With a strong background in data science and NLP, Sameer led the data preparation, training, and tuning of our generative model.
+                        His expertise in AI metrics, including readability scores, helped make StoryTeller AI both engaging and coherent.
+                    </p>
+                </div>
+    
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='minal.jpeg') }}" alt="Minal Chitale" class="team-photo">
+                    <h3 class="team-name">Minal Chitale</h3>
+                    <p class="team-role">Project Lead & ML Expert</p>
+                    <p class="team-bio">
+                        Minal developed the idea for the project and conducted in-depth research to define the tech stack. 
+                        She applied advanced NLP techniques and metrics like perplexity and the Flesch-Kincaid index to ensure engaging, coherent stories.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <section id="contact-us" style="background-color: #120643; padding: 50px; text-align: center;">
+            <h2>Stay Connected with Us</h2>
+            <p>Enter Your Email *</p>
+            <form action="#">
+                <input type="email" placeholder="Enter Your Email" required style="padding: 10px; width: 60%; max-width: 400px; border: 1px solid #f4a261; border-radius: 5px;">
+                <button type="submit" style="padding: 10px 20px; background-color: #f4a261; color: white; border: none; border-radius: 5px; cursor: pointer;">Subscribe</button>
+            </form>
+            <div style="margin-top: 20px;">
+                <p>Contact Us:</p>
+                <p>123-456-7890 | info@aisg.com</p>
+                <p>701 S. Nedderman Drive, Arlington, TX 76019</p>
+            </div>
+            <p>&copy; 2024 Ai Story Generator</p>
+            <div class="social-icons">
+                <a href="#"><img src="{{ url_for('static', filename='facebook.png') }}" alt="Facebook"></a>
+                <a href="#"><img src="{{ url_for('static', filename='linkedin.png') }}" alt="LinkedIn"></a>
+                <a href="#"><img src="{{ url_for('static', filename='instagram.png') }}" alt="Instagram"></a>
+                <a href="#"><img src="{{ url_for('static', filename='x.png') }}" alt="X"></a>
+                <a href="#"><img src="{{ url_for('static', filename='youtube.png') }}" alt="YouTube"></a>
+            </div>
+        </section>
+    </footer>
+
+    <!-- JavaScript for handling the form, story generation, and modal -->
+    <script>
+        // Modal handling
+        const modal = document.getElementById('modal');
+        const readMoreBtn = document.getElementById('readMoreBtn');
+        const closeModalBtn = document.querySelector('.modal-close');
+
+        readMoreBtn.addEventListener('click', () => {
+            modal.style.display = 'flex'; // Show the modal
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = 'none'; // Hide the modal
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target == modal) {
+                modal.style.display = 'none'; // Hide the modal if clicked outside
+            }
+        });
+    </script>
+
+</body>
+</html>
